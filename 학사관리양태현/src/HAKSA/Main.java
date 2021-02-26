@@ -35,6 +35,7 @@ public class Main extends JFrame{
 		m_book.add(mi_bookRent);
 		
 		
+		
 		mi_list.addActionListener(new ActionListener() { //학생 클릭시
 
 			@Override
