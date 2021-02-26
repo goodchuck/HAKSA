@@ -11,21 +11,21 @@ import javax.swing.table.DefaultTableModel;
 
 public class Book extends JPanel {
 
-	DefaultTableModel model;// �𵨵���Ÿ
-	JTable table;// ���̺�
+	DefaultTableModel model;// 모델데이터
+	JTable table;// 테이블
 
 	public Book() {
 		setLayout(null);
-		JLabel l_dept = new JLabel("�а�");
+		JLabel l_dept = new JLabel("학과");
 		l_dept.setBounds(10, 10, 30, 30);
 		add(l_dept);
 
-		String[] dept = { "��ü", "��ǻ�ͽý���", "��Ƽ�̵��", "��ǻ�Ͱ���" };
+		String[] dept = { "전체", "컴퓨터시스템", "멀티미디어", "컴퓨터공합" };
 		JComboBox cb_dept = new JComboBox(dept);
 		cb_dept.setBounds(45, 10, 100, 20);
 		add(cb_dept);
 
-		String colName[] = { "�й�", "�̸�", "������", "������" };
+		String colName[] = { "학번", "이름", "도서명", "대출일" };
 		model = new DefaultTableModel(colName, 0);
 		table = new JTable(model);
 		table.setPreferredScrollableViewportSize(new Dimension(470, 200));

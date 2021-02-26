@@ -20,7 +20,7 @@ import javafx.geometry.Orientation;
 
 class MyDialog extends JDialog{
 	JTextField idText = new JTextField(10);
-	JButton okBtn = new JButton("Ȯ��");
+	JButton okBtn = new JButton("확인");
 	
 	public MyDialog() {
 		setLayout(new FlowLayout());
@@ -41,33 +41,33 @@ class MyDialog extends JDialog{
 
 public class Student extends JPanel{
 	
-	JTextField name; //�̸�
-	JTextField dept; //�а�
-	JTextField id; //���̵�
-	JTextField address; //�ּ�
-	JTextField search; //�˻�
-	JTextField list; //�л����
-	JButton selectBtn; //��ȸ
-	JButton insertBtn; //�Է�
-	JButton updateBtn; //����
-	JButton deleteBtn; //����
-	JButton idCheckBtn; //�й��ߺ�üũ
+	JTextField name; //이름
+	JTextField dept; //학과
+	JTextField id; //아이디
+	JTextField address; //주소
+	JTextField search; //검색
+	JTextField list; //학생목록
+	JButton selectBtn; //조회
+	JButton insertBtn; //입력
+	JButton updateBtn; //수정
+	JButton deleteBtn; //삭제
+	JButton idCheckBtn; //학번중복체크
 	MyDialog dialog = new MyDialog();
 	
 	Student(){
-		add(new JLabel("�̸�"));
+		add(new JLabel("이름"));
 		name = new JTextField(20);
-		add(name);//�̸� textfield�߰�
+		add(name);//이름 textfield추가
 		
-		add(new JLabel("�а�"));
+		add(new JLabel("학과"));
 		dept = new JTextField(20);
-		add(dept);//�а� textfield�߰�
+		add(dept);//학과 textfield추가
 
-		add(new JLabel("�й�"));
+		add(new JLabel("학번"));
 		id = new JTextField(20);
-		add(id);//�й� textfield�߰�
+		add(id);//학번 textfield추가
 		
-		idCheckBtn = new JButton("�й��ߺ�üũ");
+		idCheckBtn = new JButton("학번중복체크");
 		add(idCheckBtn);
 		idCheckBtn.addActionListener(new ActionListener() {
 		
@@ -78,25 +78,25 @@ public class Student extends JPanel{
 		});
 		
 		
-		add(new JLabel("�ּ�"));
+		add(new JLabel("주소"));
 		address = new JTextField(20);
-		add(address);//�̸� textfield�߰�
+		add(address);//이름 textfield추가
 		
-		String colName[] = {"�й�","�̸�","�а�"};
+		String colName[] = {"학번","이름","학과"};
 		DefaultTableModel model = new DefaultTableModel(colName,0);
 		
 		JTable table = new JTable(model);
 		
-		table.setPreferredScrollableViewportSize(new Dimension(250, 200)); //���̺� ������ ������
+		table.setPreferredScrollableViewportSize(new Dimension(250, 200)); //테이블 사이즈 맞춰줌
 		add(new JScrollPane(table));
 		
-		insertBtn = new JButton("�Է�");
+		insertBtn = new JButton("입력");
 		add(insertBtn);
 		
-		updateBtn = new JButton("����");
+		updateBtn = new JButton("수정");
 		add(updateBtn);
 		
-		deleteBtn = new JButton("����");
+		deleteBtn = new JButton("삭제");
 		add(deleteBtn);
 		
 		setSize(250,600);
