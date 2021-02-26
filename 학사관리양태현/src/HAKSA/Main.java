@@ -34,6 +34,7 @@ public class Main extends JFrame{
 		JMenuItem mi_bookRent = new JMenuItem("대출현황");
 		m_book.add(mi_bookRent);
 		
+		
 		mi_list.addActionListener(new ActionListener() { //학생 클릭시
 
 			@Override
