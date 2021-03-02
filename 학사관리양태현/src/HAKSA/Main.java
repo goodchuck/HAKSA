@@ -1,5 +1,6 @@
 package HAKSA;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -17,8 +18,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
 public class Main extends JFrame{
-	JPanel panel;
+	JPanel panel, page1;
 	JButton b1, b2;
 	ImageIcon icon;
 	public Main() {
@@ -34,12 +36,30 @@ public class Main extends JFrame{
 		bar.add(m_book);	
 		JMenu m_index = new JMenu("학생정보"); // 3목차
 		bar.add(m_index);	
-		
-
+		page1 = new JPanel() {
+			ImageIcon background = new ImageIcon("E:/포트폴리오/HAKSA/학사관리양태현/src/images/background.jpg");
+			public void paint(Graphics g) {
+				g.drawImage(background.getImage(),0,0,200,200, null);
+			}
+		};
 		b1 = new JButton("로그인");
 		b2 = new JButton("회원가입");
 		
 		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//panel.removeAll(); // 모든 컴포넌트 삭제
+				//panel.revalidate(); // 다시활성화
+				//panel.repaint(); // 다시그리기
+				//panel.add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+				new Login();
+				//setVisible(false);
+				//panel.setLayout(null); // 레이아웃 적용 안함
+			}
+		});
+		
+		b2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -52,6 +72,7 @@ public class Main extends JFrame{
 				//panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
+		
 		
 		JMenuItem gomain = new JMenuItem("메인화면으로");
 		main.add(gomain);
@@ -118,11 +139,12 @@ public class Main extends JFrame{
 		panel = new JPanel();
 		panel.add(b1);
 		panel.add(b2);
-		add(panel);
-		//add(panel2);
+		add(panel,BorderLayout.SOUTH);
+		add(page1,BorderLayout.CENTER);
+		//add(page1,BorderLayout.CENTER);
 		setJMenuBar(bar);
-		setSize(800, 600);
-		setResizable(false);
+		setSize(900, 900);
+		setResizable(true);
 		setVisible(true);
 	}
 

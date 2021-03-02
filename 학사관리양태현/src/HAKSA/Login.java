@@ -21,7 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 
-public class Join extends JFrame{
+public class Login extends JFrame{
 	
 	
 	JLabel lb1, la1, la2, la3;
@@ -45,7 +45,7 @@ public class Join extends JFrame{
 	JButton idCheckBtn; //학번중복체크
 	MyDialog dialog = new MyDialog();
 	*/
-	public Join(){
+	public Login(){
 		setLayout( new FlowLayout());
 		EtchedBorder eborder = new EtchedBorder();
 		lb1 = new JLabel("아이디와 패스워드를 입력해 주세요");
@@ -55,7 +55,7 @@ public class Join extends JFrame{
 		
 		idPanel = new JPanel();
 		paPanel = new JPanel();
-		la3 = new JLabel("아이디 회원가입용");
+		la3 = new JLabel("아이디");
 		la2 = new JLabel("패스워드");
 		
 		id = new JTextField(10);
