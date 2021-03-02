@@ -39,7 +39,7 @@ class MyDialog2 extends JDialog{
 	}
 }
 
-public class Student2 extends JPanel{
+public class VersionNote extends JPanel{
 	
 	JTextField name; //�̸�
 	JTextField dept; //�а�
@@ -54,7 +54,7 @@ public class Student2 extends JPanel{
 	JButton idCheckBtn; //�й��ߺ�üũ
 	MyDialog dialog = new MyDialog();
 	
-	Student2(){
+	VersionNote(){
 		
 		JButton test = new JButton("1�� ����");
 		
