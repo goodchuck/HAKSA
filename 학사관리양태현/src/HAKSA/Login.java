@@ -22,24 +22,7 @@ import java.awt.*;
 import javax.swing.border.*;
 import java.sql.*;
 
-class MyDialog2 extends JDialog{
-	JButton okBtn = new JButton("1234");
-	public MyDialog2() {
 
-		setLayout(new FlowLayout());
-		add(okBtn);
-		
-		okBtn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
-		
-		setSize(500,300);
-	}
-}
 
 
 
@@ -177,5 +160,23 @@ public class Login extends JFrame{
 		
 
 
+	}
+	class MyDialog2 extends JDialog{
+		JButton okBtn = new JButton("1234");
+		public MyDialog2() {
+
+			setLayout(new FlowLayout());
+			add(okBtn);
+			
+			okBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false);
+				}
+			});
+			
+			setSize(500,300);
+		}
 	}
 }
