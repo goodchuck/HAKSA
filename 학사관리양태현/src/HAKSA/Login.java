@@ -22,17 +22,39 @@ import java.awt.*;
 import javax.swing.border.*;
 import java.sql.*;
 
+class MyDialog2 extends JDialog{
+	JButton okBtn = new JButton("1234");
+	public MyDialog2() {
+
+		setLayout(new FlowLayout());
+		add(okBtn);
+		
+		okBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		
+		setSize(500,300);
+	}
+}
+
+
+
 public class Login extends JFrame{
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	JLabel lb1, la1, la2, la3,la4;
-	JTextField id;
+	JTextField id, password;
 	JPasswordField passwd;
 	JPanel idPanel, paPanel, loginPanel;
 	JPanel allPanel;
 	JButton b1, b2,b3;
 	JTextArea content;
+	MyDialog2 dialog2 = new MyDialog2();
 
 	/* JTextField name; //이름
 	JTextField dept; //학과
@@ -47,6 +69,7 @@ public class Login extends JFrame{
 	JButton idCheckBtn; //학번중복체크
 	MyDialog dialog = new MyDialog();
 	*/
+
 	public Login(){
 
 		setLayout( new FlowLayout());
@@ -63,18 +86,46 @@ public class Login extends JFrame{
 		la4= new JLabel("sql테스트");
 		
 		id = new JTextField(10);
-		passwd = new JPasswordField(10);
+		password = new JTextField(10);
+		//passwd = new JPasswordField(10);
 		add(la3);
 		add(id);
 		add(la2);
-		add(passwd);
-		
+		add(password);
+
 
 
 		loginPanel = new JPanel();
 		b1 = new JButton("로그인");
 		b2 = new JButton("회원가입");
 		b3= new JButton("sql테스트");
+
+		b1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String testId = id.getText();
+				String testPassword = password.getText();
+				UserDAO userDAO = new UserDAO();
+				int result = userDAO.login(testId, testPassword);
+
+					if(result ==  1) {
+						System.out.println("로그인성공");
+						setVisible(false);
+						//String SId = id.getText();
+						dialog2.setVisible(true);
+					}
+					else if(result == 0) {
+						System.out.println("비밀번호가 틀림");
+						
+					}
+					else if(result == -1) {
+						System.out.println("존재하지 않는 아이디입니다.");
+					}
+
+			}
+		});
+		
 		b3.addActionListener(new ActionListener() { //회원가입 클릭시
 
 			@Override
@@ -82,6 +133,7 @@ public class Login extends JFrame{
 				String sql;
 				sql = "SELECT * from user";
 				ResultSet rs;
+				
 				try {
 					String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
 					String dbID = "root";
