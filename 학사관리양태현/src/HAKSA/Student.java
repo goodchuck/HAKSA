@@ -1,5 +1,6 @@
 package HAKSA;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -98,10 +99,8 @@ public class Student extends JPanel{
 		
 		deleteBtn = new JButton("삭제");
 		add(deleteBtn);
-		
 		setSize(250,600);
 		setVisible(true);
-		
 		
 	}
 }

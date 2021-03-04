@@ -20,18 +20,20 @@ import javafx.geometry.Orientation;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+import java.sql.*;
 
 public class Login extends JFrame{
-	
-	
-	JLabel lb1, la1, la2, la3;
+	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	JLabel lb1, la1, la2, la3,la4;
 	JTextField id;
 	JPasswordField passwd;
 	JPanel idPanel, paPanel, loginPanel;
 	JPanel allPanel;
-	JButton b1, b2;
+	JButton b1, b2,b3;
 	JTextArea content;
-	
+
 	/* JTextField name; //이름
 	JTextField dept; //학과
 	JTextField id; //아이디
@@ -46,6 +48,7 @@ public class Login extends JFrame{
 	MyDialog dialog = new MyDialog();
 	*/
 	public Login(){
+
 		setLayout( new FlowLayout());
 		EtchedBorder eborder = new EtchedBorder();
 		lb1 = new JLabel("아이디와 패스워드를 입력해 주세요");
@@ -57,6 +60,7 @@ public class Login extends JFrame{
 		paPanel = new JPanel();
 		la3 = new JLabel("아이디");
 		la2 = new JLabel("패스워드");
+		la4= new JLabel("sql테스트");
 		
 		id = new JTextField(10);
 		passwd = new JPasswordField(10);
@@ -65,11 +69,50 @@ public class Login extends JFrame{
 		add(la2);
 		add(passwd);
 		
+
+
 		loginPanel = new JPanel();
 		b1 = new JButton("로그인");
 		b2 = new JButton("회원가입");
+		b3= new JButton("sql테스트");
+		b3.addActionListener(new ActionListener() { //회원가입 클릭시
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String sql;
+				sql = "SELECT * from user";
+				ResultSet rs;
+				try {
+					String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
+					String dbID = "root";
+					String dbPassword = "yth502100";
+					//Class.forName("com.mysql.cj.jdbc.Driver");
+
+					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+					
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						String userID = rs.getString("userID");
+						String name = rs.getString("username");
+						System.out.println("userID :" + userID);
+						System.out.println("name :" + name);
+					}
+					rs.close();
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+
+				
+			}
+		}); 
 		loginPanel.add(b1);
 		loginPanel.add(b2);
+		loginPanel.add(b3);
 		add(idPanel);
 		add(paPanel);
 		add(loginPanel);
@@ -80,54 +123,7 @@ public class Login extends JFrame{
 		setSize(230, 350);
 		setVisible(true);
 		
-		
-	/*	add(new JLabel("이름"));
-		name = new JTextField(20);
-		add(name);//이름 textfield추가
-		
-		add(new JLabel("학과"));
-		dept = new JTextField(20);
-		add(dept);//학과 textfield추가
 
-		add(new JLabel("학번"));
-		id = new JTextField(20);
-		add(id);//학번 textfield추가
-		
-		idCheckBtn = new JButton("학번중복체크");
-		add(idCheckBtn);
-		idCheckBtn.addActionListener(new ActionListener() {
-		
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dialog.setVisible(true);
-			}
-		});
-		
-		
-		add(new JLabel("주소"));
-		address = new JTextField(20);
-		add(address);//이름 textfield추가
-		
-		String colName[] = {"학번","이름","학과"};
-		DefaultTableModel model = new DefaultTableModel(colName,0);
-		
-		JTable table = new JTable(model);
-		
-		table.setPreferredScrollableViewportSize(new Dimension(250, 200)); //테이블 사이즈 맞춰줌
-		add(new JScrollPane(table));
-		
-		insertBtn = new JButton("입력");
-		add(insertBtn);
-		
-		updateBtn = new JButton("수정");
-		add(updateBtn);
-		
-		deleteBtn = new JButton("삭제");
-		add(deleteBtn);
-		
-		setSize(250,600);
-		setVisible(true);
-		
-		*/
+
 	}
 }

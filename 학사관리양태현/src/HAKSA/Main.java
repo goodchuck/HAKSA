@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame{
 	JPanel panel, page1;
-	JButton b1, b2;
+	JButton b1, b2, b3, b4;
 	ImageIcon icon;
 	public Main() {
 		setTitle("학사관리프로그램");
@@ -36,14 +36,15 @@ public class Main extends JFrame{
 		bar.add(m_book);	
 		JMenu m_index = new JMenu("학생정보"); // 3목차
 		bar.add(m_index);	
-		page1 = new JPanel() {
+		/*page1 = new JPanel() {
 			ImageIcon background = new ImageIcon("E:/포트폴리오/HAKSA/학사관리양태현/src/images/background.jpg");
 			public void paint(Graphics g) {
 				g.drawImage(background.getImage(),0,0,200,200, null);
 			}
-		};
-		b1 = new JButton("로그인");
+		}; */
+		b1 = new JButton("학생로그인");
 		b2 = new JButton("회원가입");
+		b3 = new JButton("교사로그인");
 		
 		b1.addActionListener(new ActionListener() {
 
@@ -107,7 +108,9 @@ public class Main extends JFrame{
 				panel.removeAll(); // 모든 컴포넌트 삭제
 				panel.revalidate(); // 다시활성화
 				panel.repaint(); // 다시그리기
+				//page1.setVisible(false);
 				panel.add(new Student()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+
 				panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
@@ -138,9 +141,10 @@ public class Main extends JFrame{
 		
 		panel = new JPanel();
 		panel.add(b1);
+		panel.add(b3);
 		panel.add(b2);
-		add(panel,BorderLayout.SOUTH);
-		add(page1,BorderLayout.CENTER);
+		add(panel);
+		//add(page1);
 		//add(page1,BorderLayout.CENTER);
 		setJMenuBar(bar);
 		setSize(900, 900);

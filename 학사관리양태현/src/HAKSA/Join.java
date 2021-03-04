@@ -24,8 +24,8 @@ import javax.swing.border.*;
 public class Join extends JFrame{
 	
 	
-	JLabel lb1, la1, la2, la3;
-	JTextField id;
+	JLabel lb1, la1, la2, la3, la4, la5, la6;
+	JTextField id, name, sex, email;
 	JPasswordField passwd;
 	JPanel idPanel, paPanel, loginPanel;
 	JPanel allPanel;
@@ -55,31 +55,47 @@ public class Join extends JFrame{
 		
 		idPanel = new JPanel();
 		paPanel = new JPanel();
-		la3 = new JLabel("아이디 회원가입용");
+		la3 = new JLabel("아이디");
 		la2 = new JLabel("패스워드");
-		
+		la4 = new JLabel("이름");
+		la5 = new JLabel("성별");
+		la6 = new JLabel("이메일");
 		id = new JTextField(10);
 		passwd = new JPasswordField(10);
+		name = new JTextField(10);
+		sex = new JTextField(10);
+		email = new JTextField(50);
 		add(la3);
 		add(id);
 		add(la2);
 		add(passwd);
+		add(la4);
+		add(name);
+		add(la5);
+		add(name);
+		add(la6);
+		add(email);
 		
 		loginPanel = new JPanel();
-		b1 = new JButton("로그인");
 		b2 = new JButton("회원가입");
-		loginPanel.add(b1);
 		loginPanel.add(b2);
 		add(idPanel);
 		add(paPanel);
 		add(loginPanel);
 		
-		content = new JTextArea(3,20);
 		JScrollPane s = new JScrollPane(content);
 		add(s);
 		setSize(230, 350);
 		setVisible(true);
-		
+			
+		b2.addActionListener(new ActionListener() { //회원가입 클릭시
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String sql;
+				sql = "SELECT * from user";
+			}
+		});
 		
 	/*	add(new JLabel("이름"));
 		name = new JTextField(20);
