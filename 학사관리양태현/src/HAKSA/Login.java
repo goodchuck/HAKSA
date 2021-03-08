@@ -94,7 +94,7 @@ public class Login extends JFrame{
 
 					if(result ==  1) {
 						System.out.println("로그인성공");
-						setVisible(false);
+						dispose();
 						//String SId = id.getText();
 						dialog2.setVisible(true);
 					}
@@ -151,7 +151,6 @@ public class Login extends JFrame{
 		add(idPanel);
 		add(paPanel);
 		add(loginPanel);
-		
 		content = new JTextArea(3,20);
 		JScrollPane s = new JScrollPane(content);
 		add(s);
@@ -162,20 +161,25 @@ public class Login extends JFrame{
 
 	}
 	class MyDialog2 extends JDialog{
-		JButton okBtn = new JButton("1234");
+		JLabel dilabel = new JLabel("로그인이되셨습니다.");
+		JButton okBtn = new JButton("확인");
 		public MyDialog2() {
 
 			setLayout(new FlowLayout());
+			add(dilabel);
 			add(okBtn);
 			
 			okBtn.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setVisible(false);
+					dispose();
+					Main.idcheck = true;
+					Main.sessionid = id.getText();
+					new Main();
 				}
 			});
-			
+
 			setSize(500,300);
 		}
 	}

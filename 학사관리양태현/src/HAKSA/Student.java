@@ -54,7 +54,7 @@ public class Student extends JPanel{
 	JButton deleteBtn; //삭제
 	JButton idCheckBtn; //학번중복체크
 	MyDialog dialog = new MyDialog();
-	
+	String ipname, ipdept, ipid;
 	Student(){
 		add(new JLabel("이름"));
 		name = new JTextField(20);
@@ -78,7 +78,7 @@ public class Student extends JPanel{
 			}
 		});
 		
-		
+
 		add(new JLabel("주소"));
 		address = new JTextField(20);
 		add(address);//이름 textfield추가
@@ -92,12 +92,54 @@ public class Student extends JPanel{
 		add(new JScrollPane(table));
 		
 		insertBtn = new JButton("입력");
+		insertBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ipid = id.getText();
+				ipname = name.getText();
+				ipdept = dept.getText();
+				model.insertRow(0, new Object[] {ipid, ipname, ipdept});
+				table.updateUI();
+				id.setText("");
+				name.setText("");
+				dept.setText("");
+			}
+		});
 		add(insertBtn);
 		
 		updateBtn = new JButton("수정");
+		updateBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ipid = id.getText();
+				ipname = name.getText();
+				ipdept = dept.getText();
+				model.insertRow(0, new Object[] {ipid, ipname, ipdept});
+				table.updateUI();
+				id.setText("");
+				name.setText("");
+				dept.setText("");
+			}
+		});
 		add(updateBtn);
 		
 		deleteBtn = new JButton("삭제");
+		deleteBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ipid = id.getText();
+				ipname = name.getText();
+				ipdept = dept.getText();
+				model.insertRow(0, new Object[] {ipid, ipname, ipdept});
+				table.updateUI();
+				id.setText("");
+				name.setText("");
+				dept.setText("");
+			}
+		});
 		add(deleteBtn);
 		setSize(250,600);
 		setVisible(true);

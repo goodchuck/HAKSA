@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -21,8 +22,11 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame{
 	JPanel panel, page1;
-	JButton b1, b2, b3, b4;
+	JButton b1, b2, b3, b4, b5;
 	ImageIcon icon;
+	JLabel label1;
+	public static boolean idcheck = false;
+	public static String sessionid = "";
 	public Main() {
 		setTitle("학사관리프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +49,19 @@ public class Main extends JFrame{
 		b1 = new JButton("학생로그인");
 		b2 = new JButton("회원가입");
 		b3 = new JButton("교사로그인");
-		
+		b5 = new JButton("로그아웃");
+		label1 = new JLabel("로그인을해주세요");
+		if(sessionid == "") {
+			b5.setVisible(false);
+		} else {
+			b1.setVisible(false);
+			b2.setVisible(false);
+			b3.setVisible(false);
+			b5.setVisible(true);
+			if (idcheck == true) {
+				label1.setText(sessionid + "님 환영합니다.");
+			}
+		}
 		b1.addActionListener(new ActionListener() {
 
 			@Override
@@ -54,8 +70,8 @@ public class Main extends JFrame{
 				//panel.revalidate(); // 다시활성화
 				//panel.repaint(); // 다시그리기
 				//panel.add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+				dispose();
 				new Login();
-				//setVisible(false);
 				//panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
@@ -69,8 +85,19 @@ public class Main extends JFrame{
 				//panel.repaint(); // 다시그리기
 				//panel.add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
 				new Join();
-				//setVisible(false);
+				setVisible(false);
 				//panel.setLayout(null); // 레이아웃 적용 안함
+			}
+		});
+		
+		b5.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				sessionid = "";
+				idcheck = false;
+				new  Main();
 			}
 		});
 		
@@ -81,7 +108,7 @@ public class Main extends JFrame{
 		JMenuItem mi_list = new JMenuItem("학생정보");
 		m_student.add(mi_list);
 		
-		JMenuItem mi_index = new JMenuItem("버전노트");
+		JMenuItem mi_index = new JMenuItem("로그인한 내 정보");
 		m_index.add(mi_index);
 
 		JMenuItem mi_bookRent = new JMenuItem("대출현황");
@@ -134,7 +161,7 @@ public class Main extends JFrame{
 				panel.removeAll(); // 모든 컴포넌트 삭제
 				panel.revalidate(); // 다시활성화
 				panel.repaint(); // 다시그리기
-				panel.add(new VersionNote()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+				panel.add(new Info()); // 학생정보에 대한 화면을 구현한 클래스를 생성
 				panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
@@ -143,6 +170,8 @@ public class Main extends JFrame{
 		panel.add(b1);
 		panel.add(b3);
 		panel.add(b2);
+		panel.add(label1);
+		panel.add(b5);
 		add(panel);
 		//add(page1);
 		//add(page1,BorderLayout.CENTER);
