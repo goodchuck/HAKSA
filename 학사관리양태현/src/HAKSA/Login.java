@@ -37,7 +37,7 @@ public class Login extends JFrame{
 	JPanel allPanel;
 	JButton b1, b2,b3;
 	JTextArea content;
-	MyDialog2 dialog2 = new MyDialog2();
+	MyDialog dialog = new MyDialog();
 
 	/* JTextField name; //이름
 	JTextField dept; //학과
@@ -96,7 +96,7 @@ public class Login extends JFrame{
 						System.out.println("로그인성공");
 						dispose();
 						//String SId = id.getText();
-						dialog2.setVisible(true);
+						dialog.setVisible(true);
 					}
 					else if(result == 0) {
 						System.out.println("비밀번호가 틀림");
@@ -160,10 +160,10 @@ public class Login extends JFrame{
 
 
 	}
-	class MyDialog2 extends JDialog{
+	class MyDialog extends JDialog{
 		JLabel dilabel = new JLabel("로그인이되셨습니다.");
 		JButton okBtn = new JButton("확인");
-		public MyDialog2() {
+		public MyDialog() {
 
 			setLayout(new FlowLayout());
 			add(dilabel);
