@@ -40,7 +40,7 @@ class MyDialog extends JDialog{
 	}
 }
 
-public class Student extends JFrame{
+public class Student extends JPanel{
 	
 	JTextField name; //이름
 	JTextField dept; //학과

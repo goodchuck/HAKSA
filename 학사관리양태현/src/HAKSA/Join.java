@@ -21,7 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 
-public class Join extends JFrame{
+public class Join extends JPanel{
 	
 	
 	JLabel lb1, la1, la2, la3, la4, la5, la6;

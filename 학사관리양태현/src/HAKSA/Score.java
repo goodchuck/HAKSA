@@ -9,12 +9,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Book extends JPanel {
+public class Score extends JPanel {
 
 	DefaultTableModel model;// 모델데이터
 	JTable table;// 테이블
 
-	public Book() {
+	public Score() {
 		setLayout(null);
 		JLabel l_dept = new JLabel("학과");
 		l_dept.setBounds(10, 10, 30, 30);

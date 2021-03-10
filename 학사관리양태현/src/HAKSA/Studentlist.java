@@ -24,16 +24,12 @@ import javax.swing.table.DefaultTableModel;
 import javafx.geometry.Orientation;
 
 
-public class Studentlist extends JFrame{
+public class Studentlist extends JPanel{
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	int i= 0;
-	JPanel mainpanel;
 	Studentlist(){
-		setTitle("전체학생목록");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainpanel = new JPanel();
 		String sql;
 		sql = "SELECT * from user";
 		ResultSet rs;
@@ -42,7 +38,7 @@ public class Studentlist extends JFrame{
 		
 		JTable table = new JTable(model);
 		table.setPreferredScrollableViewportSize(new Dimension(250, 200)); //테이블 사이즈 맞춰줌
-		mainpanel.add(new JScrollPane(table));
+		add(new JScrollPane(table));
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
 			String dbID = "root";
@@ -69,7 +65,6 @@ public class Studentlist extends JFrame{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		add(mainpanel);
 		setSize(600,600);
 		setVisible(true);
 	}

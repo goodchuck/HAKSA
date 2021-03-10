@@ -23,10 +23,10 @@ import javax.swing.table.DefaultTableModel;
 import javafx.geometry.Orientation;
 
 
-public class Info extends JFrame{
+public class Info extends JPanel{
 	JTextField idlabel, pwlabel,namelabel,sexlabel,emaillabel;
 	JLabel idtext, pwtext, nametext, sextext, emailtext;
-	JPanel mainpanel;
+	//JPanel mainpanel;
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -34,8 +34,7 @@ public class Info extends JFrame{
 
 	
 	Info(){
-		setTitle("내 정보");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.out.println("info진입확인");
 		idtext= new JLabel("아이디 = ");
 		pwtext = new JLabel("비밀번호 = ");
 		nametext = new JLabel("이름= ");
@@ -43,7 +42,7 @@ public class Info extends JFrame{
 		emailtext = new JLabel("이메일= ");
 		
 		
-		mainpanel = new JPanel();
+		//mainpanel = new JPanel();
 		
 		idlabel = new JTextField();
 		idlabel.setEditable(false);
@@ -91,20 +90,17 @@ public class Info extends JFrame{
 				e1.printStackTrace();
 			}
 		}		
-		mainpanel.add(idtext);
-		mainpanel.add(idlabel);
-		mainpanel.add(pwtext);
-		mainpanel.add(pwlabel);
-		mainpanel.add(nametext);
-		mainpanel.add(namelabel);
-		mainpanel.add(sextext);
-		mainpanel.add(sexlabel);
-		mainpanel.add(emailtext);
-		mainpanel.add(emaillabel);
-		add(mainpanel);
+		add(idtext);
+		add(idlabel);
+		add(pwtext);
+		add(pwlabel);
+		add(nametext);
+		add(namelabel);
+		add(sextext);
+		add(sexlabel);
+		add(emailtext);
+		add(emaillabel);
 
-
-		
 		setSize(600,600);
 		setVisible(true);
 		

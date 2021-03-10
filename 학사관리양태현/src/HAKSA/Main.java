@@ -27,10 +27,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	JPanel panel, buttonpanel;
+	JPanel panel, buttonpanel, sessionidpanel;
 	JButton b1, b2, b3, b4, b5;
 	ImageIcon icon;
-	JLabel label1, idlabel, pwlabel;
+	JLabel label1, idlabel, pwlabel, sessionidlabel;
 	JTextField id, password;
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
@@ -39,6 +39,7 @@ public class Main extends JFrame{
 	MyDialog2 dialog2 = new MyDialog2();
 	public static boolean idcheck = false;
 	public static String sessionid = "";
+	
 	public Main() {
 		setTitle("학사관리프로그램");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,8 +50,8 @@ public class Main extends JFrame{
 		bar.add(main);
 		JMenu m_student = new JMenu("학생관리"); //메뉴
 		bar.add(m_student);
-		JMenu m_book = new JMenu("도서관리"); // 2번째 메뉴
-		bar.add(m_book);	
+		JMenu m_score = new JMenu("성적관리"); // 2번째 메뉴
+		bar.add(m_score);	
 		JMenu m_index = new JMenu("학생정보"); // 3목차
 		bar.add(m_index);	
 		/*buttonpanel = new JPanel() {
@@ -67,8 +68,10 @@ public class Main extends JFrame{
 		b2 = new JButton("회원가입");
 		b3 = new JButton("교사로그인");
 		b5 = new JButton("로그아웃");
-		label1 = new JLabel("로그인을해주세요");
+		panel = new JPanel();
 		buttonpanel = new JPanel();
+		sessionidpanel = new JPanel();
+		sessionidlabel = new JLabel("로그인을해주세요");
 		if(sessionid == "") {
 			b5.setVisible(false);
 		} else {
@@ -81,7 +84,7 @@ public class Main extends JFrame{
 			password.setVisible(false);
 			b5.setVisible(true);
 			if (idcheck == true) {
-				label1.setText(sessionid + "님 환영합니다.");
+				sessionidlabel.setText(sessionid + "님 환영합니다.");
 			}
 		}
 		b1.addActionListener(new ActionListener() {
@@ -155,8 +158,8 @@ public class Main extends JFrame{
 		JMenuItem mi_index = new JMenuItem("내 정보");
 		m_index.add(mi_index);
 
-		JMenuItem mi_bookRent = new JMenuItem("대출현황");
-		m_book.add(mi_bookRent);
+		JMenuItem mi_score = new JMenuItem("성적");
+		m_score.add(mi_score);
 		
 		
 		gomain.addActionListener(new ActionListener(){
@@ -169,41 +172,34 @@ public class Main extends JFrame{
 			}
 			
 		});
-		mi_list.addActionListener(new ActionListener() { //학생 클릭시
+		mi_list.addActionListener(new ActionListener() { //학생정보 클릭시
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll(); // 모든 컴포넌트 삭제
 				panel.revalidate(); // 다시활성화
 				panel.repaint(); // 다시그리기
-				//buttonpanel.setVisible(false);
+				buttonpanel.setVisible(false);
 				panel.add(new Student()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-
 				panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
 
-		mi_studentlist.addActionListener(new ActionListener() { //학생 클릭시
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new Studentlist();
-			}
-		});
-		// 대출현황아이템 이벤트 처리
-		mi_bookRent.addActionListener(new ActionListener() {// 강좌 클릭시
+		mi_studentlist.addActionListener(new ActionListener() { //전체학생목록 클릭시
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll(); // 모든 컴포넌트 삭제
 				panel.revalidate(); // 다시활성화
 				panel.repaint(); // 다시그리기
-				panel.add(new Book()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+				buttonpanel.setVisible(false);
+				panel.add(new Studentlist()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+
 				panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
-		mi_index.addActionListener(new ActionListener() { //목록 클릭시
+
+		mi_index.addActionListener(new ActionListener() { //내정보 클릭시
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -212,13 +208,28 @@ public class Main extends JFrame{
 					dispose();
 					dialog2.setVisible(true);
 				} else {
-					dispose();
-					new Info();
+					panel.removeAll(); // 모든 컴포넌트 삭제
+					panel.revalidate(); // 다시활성화
+					panel.repaint(); // 다시그리기
+					buttonpanel.setVisible(false);
+					panel.add(new Info()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+
+					panel.setLayout(null); // 레이아웃 적용 안함
 				}
 			}
 		});
-		
-		panel = new JPanel();
+		// 대출현황아이템 이벤트 처리
+		mi_score.addActionListener(new ActionListener() {// 성적 클릭시
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll(); // 모든 컴포넌트 삭제
+				panel.revalidate(); // 다시활성화
+				panel.repaint(); // 다시그리기
+				panel.add(new Score()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+				panel.setLayout(null); // 레이아웃 적용 안함
+			}
+		});
 
 		panel.add(idlabel);
 		panel.add(id);
@@ -227,21 +238,19 @@ public class Main extends JFrame{
 		buttonpanel.add(b1);
 		buttonpanel.add(b3);
 		buttonpanel.add(b2);
-		panel.add(label1);
 		panel.add(b5);
-		add(panel,BorderLayout.NORTH);
-		add(buttonpanel,BorderLayout.CENTER);
+		sessionidpanel.add(sessionidlabel);
+		add(sessionidpanel,BorderLayout.NORTH);
+		add(panel,BorderLayout.CENTER);
+		add(buttonpanel,BorderLayout.SOUTH);
 		setJMenuBar(bar);
-		setSize(900, 900);
+		setSize(500, 500);
 		setResizable(true);
 		setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		Main m = new Main();
-		m.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//new Main();
-		
+		new Main();	
 	}
 	class MyDialog extends JDialog{
 		JLabel dilabel = new JLabel("로그인이되셨습니다.");
@@ -284,7 +293,7 @@ public class Main extends JFrame{
 				}
 			});
 
-			setSize(500,300);
+			setSize(800,300);
 		}
 	}
 }
