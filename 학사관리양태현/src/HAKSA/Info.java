@@ -23,8 +23,10 @@ import javax.swing.table.DefaultTableModel;
 import javafx.geometry.Orientation;
 
 
-public class Info extends JPanel{
-	JLabel label1, label2;
+public class Info extends JFrame{
+	JTextField idlabel, pwlabel,namelabel,sexlabel,emaillabel;
+	JLabel idtext, pwtext, nametext, sextext, emailtext;
+	JPanel mainpanel;
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -32,9 +34,31 @@ public class Info extends JPanel{
 
 	
 	Info(){
+		setTitle("내 정보");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		idtext= new JLabel("아이디 = ");
+		pwtext = new JLabel("비밀번호 = ");
+		nametext = new JLabel("이름= ");
+		sextext = new JLabel("성별= ");
+		emailtext = new JLabel("이메일= ");
+		
+		
+		mainpanel = new JPanel();
+		
+		idlabel = new JTextField();
+		idlabel.setEditable(false);
+		pwlabel = new JTextField();
+		pwlabel.setEditable(false);
+		namelabel = new JTextField();
+		namelabel.setEditable(false);
+		sexlabel = new JTextField();
+		sexlabel.setEditable(false);
+		emaillabel = new JTextField();
+		emaillabel.setEditable(false);
+		System.out.println(Main.sessionid);
 		if(Main.sessionid != null) {
 			String sql;
-			sql = "SELECT * from user";
+			sql = "SELECT * from user where userID=" +Main.sessionid +"";
 			ResultSet rs;
 			
 			try {
@@ -49,11 +73,15 @@ public class Info extends JPanel{
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					String userID = rs.getString("userID");
-					String name = rs.getString("username");
-					System.out.println("userID :" + userID);
-					System.out.println("name :" + name);
-					label1.setText(userID);
-					label2.setText(name);
+					String userPassword = rs.getString("userPassword");
+					String userName = rs.getString("userName");
+					String userGender = rs.getString("userGender");
+					String userEmail = rs.getString("userEmail");
+					idlabel.setText(userID);
+					pwlabel.setText(userPassword);
+					namelabel.setText(userName);
+					sexlabel.setText(userGender);
+					emaillabel.setText(userEmail);
 				}
 				rs.close();
 				pstmt.close();
@@ -63,10 +91,18 @@ public class Info extends JPanel{
 				e1.printStackTrace();
 			}
 		}		
-		
-		
-		add(label1);
-		add(label2);
+		mainpanel.add(idtext);
+		mainpanel.add(idlabel);
+		mainpanel.add(pwtext);
+		mainpanel.add(pwlabel);
+		mainpanel.add(nametext);
+		mainpanel.add(namelabel);
+		mainpanel.add(sextext);
+		mainpanel.add(sexlabel);
+		mainpanel.add(emailtext);
+		mainpanel.add(emaillabel);
+		add(mainpanel);
+
 
 		
 		setSize(600,600);

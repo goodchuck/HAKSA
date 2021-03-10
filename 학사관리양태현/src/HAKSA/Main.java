@@ -27,7 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	JPanel panel, page1;
+	JPanel panel, buttonpanel;
 	JButton b1, b2, b3, b4, b5;
 	ImageIcon icon;
 	JLabel label1, idlabel, pwlabel;
@@ -36,6 +36,7 @@ public class Main extends JFrame{
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	MyDialog dialog = new MyDialog();
+	MyDialog2 dialog2 = new MyDialog2();
 	public static boolean idcheck = false;
 	public static String sessionid = "";
 	public Main() {
@@ -52,7 +53,7 @@ public class Main extends JFrame{
 		bar.add(m_book);	
 		JMenu m_index = new JMenu("학생정보"); // 3목차
 		bar.add(m_index);	
-		/*page1 = new JPanel() {
+		/*buttonpanel = new JPanel() {
 			ImageIcon background = new ImageIcon("E:/포트폴리오/HAKSA/학사관리양태현/src/images/background.jpg");
 			public void paint(Graphics g) {
 				g.drawImage(background.getImage(),0,0,200,200, null);
@@ -67,6 +68,7 @@ public class Main extends JFrame{
 		b3 = new JButton("교사로그인");
 		b5 = new JButton("로그아웃");
 		label1 = new JLabel("로그인을해주세요");
+		buttonpanel = new JPanel();
 		if(sessionid == "") {
 			b5.setVisible(false);
 		} else {
@@ -147,7 +149,10 @@ public class Main extends JFrame{
 		JMenuItem mi_list = new JMenuItem("학생정보");
 		m_student.add(mi_list);
 		
-		JMenuItem mi_index = new JMenuItem("로그인한 내 정보");
+		JMenuItem mi_studentlist = new JMenuItem("전체학생목록");
+		m_student.add(mi_studentlist);
+		
+		JMenuItem mi_index = new JMenuItem("내 정보");
 		m_index.add(mi_index);
 
 		JMenuItem mi_bookRent = new JMenuItem("대출현황");
@@ -158,12 +163,9 @@ public class Main extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				panel.removeAll(); // 모든 컴포넌트 삭제
-				panel.revalidate(); // 다시활성화
-				panel.repaint(); // 다시그리기
-				//add(panel); // 학생정보에 대한 화면을 구현한 클래스를 생성
-				panel.setLayout(null); // 레이아웃 적용 안함
+				dispose();
+				new Main();
+				
 			}
 			
 		});
@@ -174,13 +176,21 @@ public class Main extends JFrame{
 				panel.removeAll(); // 모든 컴포넌트 삭제
 				panel.revalidate(); // 다시활성화
 				panel.repaint(); // 다시그리기
-				//page1.setVisible(false);
+				//buttonpanel.setVisible(false);
 				panel.add(new Student()); // 학생정보에 대한 화면을 구현한 클래스를 생성
 
 				panel.setLayout(null); // 레이아웃 적용 안함
 			}
 		});
 
+		mi_studentlist.addActionListener(new ActionListener() { //학생 클릭시
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Studentlist();
+			}
+		});
 		// 대출현황아이템 이벤트 처리
 		mi_bookRent.addActionListener(new ActionListener() {// 강좌 클릭시
 
@@ -197,11 +207,14 @@ public class Main extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panel.removeAll(); // 모든 컴포넌트 삭제
-				panel.revalidate(); // 다시활성화
-				panel.repaint(); // 다시그리기
-				panel.add(new Info()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-				panel.setLayout(null); // 레이아웃 적용 안함
+				System.out.println(sessionid);
+				if(sessionid.equals("")){
+					dispose();
+					dialog2.setVisible(true);
+				} else {
+					dispose();
+					new Info();
+				}
 			}
 		});
 		
@@ -211,14 +224,13 @@ public class Main extends JFrame{
 		panel.add(id);
 		panel.add(pwlabel);
 		panel.add(password);
-		panel.add(b1);
-		panel.add(b3);
-		panel.add(b2);
+		buttonpanel.add(b1);
+		buttonpanel.add(b3);
+		buttonpanel.add(b2);
 		panel.add(label1);
 		panel.add(b5);
-		add(panel);
-		//add(page1);
-		//add(page1,BorderLayout.CENTER);
+		add(panel,BorderLayout.NORTH);
+		add(buttonpanel,BorderLayout.CENTER);
 		setJMenuBar(bar);
 		setSize(900, 900);
 		setResizable(true);
@@ -245,8 +257,29 @@ public class Main extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					Main.idcheck = true;
-					Main.sessionid = id.getText();
+					idcheck = true;
+					sessionid = id.getText();
+					new Main();
+				}
+			});
+
+			setSize(500,300);
+		}
+	}
+	class MyDialog2 extends JDialog{
+		JLabel dilabel = new JLabel("로그인이안되어있습니다 로그인을 해주세요");
+		JButton okBtn = new JButton("확인");
+		public MyDialog2() {
+
+			setLayout(new FlowLayout());
+			add(dilabel);
+			add(okBtn);
+			
+			okBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dispose();
 					new Main();
 				}
 			});
