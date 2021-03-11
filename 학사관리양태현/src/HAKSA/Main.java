@@ -30,7 +30,7 @@ public class Main extends JFrame{
 	JPanel panel, buttonpanel, sessionidpanel;
 	JButton b1, b2, b3, b4, b5;
 	ImageIcon icon;
-	JLabel label1, idlabel, pwlabel, sessionidlabel;
+	JLabel label1, idlabel, pwlabel, sessionidlabel, sessionstlabel;
 	JTextField id, password;
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
@@ -39,6 +39,7 @@ public class Main extends JFrame{
 	MyDialog2 dialog2 = new MyDialog2();
 	public static boolean idcheck = false;
 	public static String sessionid = "";
+	public static String sessionst = "";
 	
 	public Main() {
 		setTitle("학사관리프로그램");
@@ -72,6 +73,7 @@ public class Main extends JFrame{
 		buttonpanel = new JPanel();
 		sessionidpanel = new JPanel();
 		sessionidlabel = new JLabel("로그인을해주세요");
+		sessionstlabel = new JLabel("교사여부X");
 		if(sessionid == "") {
 			b5.setVisible(false);
 		} else {
@@ -84,8 +86,9 @@ public class Main extends JFrame{
 			password.setVisible(false);
 			b5.setVisible(true);
 			if (idcheck == true) {
-				sessionidlabel.setText(sessionid + "님 환영합니다.");
-			}
+				sessionidlabel.setText(sessionid + " 님 환영합니다.");
+				sessionstlabel.setText(sessionst + " 교사는0 학생은1");
+			} 
 		}
 		b1.addActionListener(new ActionListener() {
 
@@ -124,13 +127,14 @@ public class Main extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//panel.removeAll(); // 모든 컴포넌트 삭제
-				//panel.revalidate(); // 다시활성화
-				//panel.repaint(); // 다시그리기
-				//panel.add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-				new Join();
-				setVisible(false);
-				//panel.setLayout(null); // 레이아웃 적용 안함
+				panel.removeAll(); // 모든 컴포넌트 삭제
+				panel.revalidate(); // 다시활성화
+				panel.repaint(); // 다시그리기
+				panel.add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+				//setVisible(false);
+				buttonpanel.setVisible(false);
+				panel.setLayout(null); // 레이아웃 적용 안함
+				
 			}
 		});
 		
@@ -213,8 +217,7 @@ public class Main extends JFrame{
 					panel.repaint(); // 다시그리기
 					buttonpanel.setVisible(false);
 					panel.add(new Info()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-
-					panel.setLayout(null); // 레이아웃 적용 안함
+					//panel.setLayout(null); // 레이아웃 적용 안함
 				}
 			}
 		});
@@ -240,6 +243,7 @@ public class Main extends JFrame{
 		buttonpanel.add(b2);
 		panel.add(b5);
 		sessionidpanel.add(sessionidlabel);
+		sessionidpanel.add(sessionstlabel);
 		add(sessionidpanel,BorderLayout.NORTH);
 		add(panel,BorderLayout.CENTER);
 		add(buttonpanel,BorderLayout.SOUTH);
@@ -276,7 +280,7 @@ public class Main extends JFrame{
 		}
 	}
 	class MyDialog2 extends JDialog{
-		JLabel dilabel = new JLabel("로그인이안되어있습니다 로그인을 해주세요");
+		JLabel dilabel = new JLabel("로그인이안되어있습니다. 로그인을 해주세요");
 		JButton okBtn = new JButton("확인");
 		public MyDialog2() {
 

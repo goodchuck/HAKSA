@@ -33,14 +33,14 @@ public class Studentlist extends JPanel{
 		String sql;
 		sql = "SELECT * from user";
 		ResultSet rs;
-		String colName[] = {"아이디","비밀번호","이름","성별","이메일"};
+		String colName[] = {"아이디","이름","성별","나이","학과","교사여부"};
 		DefaultTableModel model = new DefaultTableModel(colName,0);
 		
 		JTable table = new JTable(model);
-		table.setPreferredScrollableViewportSize(new Dimension(250, 200)); //테이블 사이즈 맞춰줌
+		table.setPreferredScrollableViewportSize(new Dimension(350, 300)); //테이블 사이즈 맞춰줌
 		add(new JScrollPane(table));
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/HAKSA?characterEncoding=UTF-8&serverTimezone=UTC";
 			String dbID = "root";
 			String dbPassword = "yth502100";
 			//Class.forName("com.mysql.cj.jdbc.Driver");
@@ -50,12 +50,14 @@ public class Studentlist extends JPanel{
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				String userID = rs.getString("userID");
-				String userPassword = rs.getString("userPassword");
-				String userName = rs.getString("userName");
-				String userGender = rs.getString("userGender");
-				String userEmail = rs.getString("userEmail");
-				model.insertRow(i, new Object[] {userID, userPassword, userName, userGender, userEmail});
+				String userID = rs.getString("Id");
+				//String userPassword = rs.getString("Pw");
+				String userName = rs.getString("Name");
+				String userSex = rs.getString("Sex");
+				String userAge = rs.getString("Age");
+				String userDept = rs.getString("Dept");
+				String userSt = rs.getString("St");
+				model.insertRow(i, new Object[] {userID,userName, userSex,userAge,userDept,userSt});
 				i++;
 			}
 			rs.close();

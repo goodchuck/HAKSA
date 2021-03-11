@@ -141,7 +141,7 @@ public class Student extends JPanel{
 			}
 		});
 		add(deleteBtn);
-		setSize(250,600);
+		setSize(230,600);
 		setVisible(true);
 		
 	}

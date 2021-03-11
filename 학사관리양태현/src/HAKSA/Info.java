@@ -24,8 +24,8 @@ import javafx.geometry.Orientation;
 
 
 public class Info extends JPanel{
-	JTextField idlabel, pwlabel,namelabel,sexlabel,emaillabel;
-	JLabel idtext, pwtext, nametext, sextext, emailtext;
+	JTextField idlabel, pwlabel,namelabel,sexlabel,agelabel, deptlabel, stlabel;
+	JLabel idtext, pwtext, nametext, sextext, agetext, depttext, sttext;
 	//JPanel mainpanel;
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
@@ -39,7 +39,9 @@ public class Info extends JPanel{
 		pwtext = new JLabel("비밀번호 = ");
 		nametext = new JLabel("이름= ");
 		sextext = new JLabel("성별= ");
-		emailtext = new JLabel("이메일= ");
+		agetext = new JLabel("나이= ");
+		depttext = new JLabel("학과= ");
+		sttext = new JLabel("교사여부= ");
 		
 		
 		//mainpanel = new JPanel();
@@ -52,16 +54,20 @@ public class Info extends JPanel{
 		namelabel.setEditable(false);
 		sexlabel = new JTextField();
 		sexlabel.setEditable(false);
-		emaillabel = new JTextField();
-		emaillabel.setEditable(false);
+		agelabel = new JTextField();
+		agelabel.setEditable(false);
+		deptlabel = new JTextField();
+		deptlabel.setEditable(false);
+		stlabel = new JTextField();
+		stlabel.setEditable(false);
 		System.out.println(Main.sessionid);
 		if(Main.sessionid != null) {
 			String sql;
-			sql = "SELECT * from user where userID=" +Main.sessionid +"";
+			sql = "SELECT * from user where Id=" +Main.sessionid +"";
 			ResultSet rs;
 			
 			try {
-				String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
+				String dbURL = "jdbc:mysql://localhost:3306/HAKSA?characterEncoding=UTF-8&serverTimezone=UTC";
 				String dbID = "root";
 				String dbPassword = "yth502100";
 				//Class.forName("com.mysql.cj.jdbc.Driver");
@@ -71,16 +77,20 @@ public class Info extends JPanel{
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
-					String userID = rs.getString("userID");
-					String userPassword = rs.getString("userPassword");
-					String userName = rs.getString("userName");
-					String userGender = rs.getString("userGender");
-					String userEmail = rs.getString("userEmail");
+					String userID = rs.getString("Id");
+					String userPassword = rs.getString("Pw");
+					String userName = rs.getString("Name");
+					String userGender = rs.getString("Sex");
+					String userAge = rs.getString("Age");
+					String userDept = rs.getString("Dept");
+					String userSt = rs.getString("St");
 					idlabel.setText(userID);
 					pwlabel.setText(userPassword);
 					namelabel.setText(userName);
 					sexlabel.setText(userGender);
-					emaillabel.setText(userEmail);
+					agelabel.setText(userAge);
+					deptlabel.setText(userDept);
+					stlabel.setText(userSt);
 				}
 				rs.close();
 				pstmt.close();
@@ -98,8 +108,12 @@ public class Info extends JPanel{
 		add(namelabel);
 		add(sextext);
 		add(sexlabel);
-		add(emailtext);
-		add(emaillabel);
+		add(agetext);
+		add(agelabel);
+		add(depttext);
+		add(deptlabel);
+		add(sttext);
+		add(stlabel);
 
 		setSize(600,600);
 		setVisible(true);
