@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.ScoreDAO;
 import javafx.geometry.Orientation;
 import javax.swing.*;
 import java.awt.*;
@@ -72,19 +73,19 @@ public class Scoreint extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if (id.getText() == null || en.getText() == null || ko.getText() == null || ma.getText() == null) {
-					System.out.println("입력 안된 사항이 있습니다.");	
+				if (id.getText() == null || en.getText() == null || ko.getText() == null || ma.getText() == null) {	
 					MyDialog2 dialog = new MyDialog2();
 					dialog.setVisible(true);
 			} else {
-				UserDAO userDAO = new UserDAO();				
-				int result = userDAO.scoreinttest(ko.getText(), en.getText(), ma.getText(), id.getText());
+				ScoreDAO scoreDAO = new ScoreDAO();				
+				int result = scoreDAO.scoreinttest(ko.getText(), en.getText(), ma.getText(), id.getText());
 				if(result == -1) {
 					MyDialog dialog = new MyDialog();
 					dialog.setVisible(true);
 				}
 				else {
-					System.out.println("성적입력이 성공적으로 되셨습니다.");
+					MyDialog3 dialog = new MyDialog3();
+					dialog.setVisible(true);
 					removeAll();
 					revalidate();
 					repaint();
@@ -132,6 +133,26 @@ public class Scoreint extends JPanel{
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 					new Scoreint();
+				}
+			});
+
+			setSize(500,300);
+		}
+	}
+	class MyDialog3 extends JDialog{
+		JLabel dilabel = new JLabel("성적입력이 완료되셨습니다.");
+		JButton okBtn = new JButton("확인");
+		public MyDialog3() {
+
+			setLayout(new FlowLayout());
+			add(dilabel);
+			add(okBtn);
+			
+			okBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dispose();
 				}
 			});
 

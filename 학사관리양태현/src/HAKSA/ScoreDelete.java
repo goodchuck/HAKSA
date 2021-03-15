@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.ScoreDAO;
 import javafx.geometry.Orientation;
 import javax.swing.*;
 import java.awt.*;
@@ -65,14 +66,13 @@ public class ScoreDelete extends JPanel{
 					MyDialog2 dialog = new MyDialog2();
 					dialog.setVisible(true);
 			} else {
-				UserDAO userDAO = new UserDAO();				
-				int result = userDAO.delete(id.getText());
+				ScoreDAO scoreDAO = new ScoreDAO();				
+				int result = scoreDAO.delete(id.getText());
 				if(result == -1) {
 					MyDialog dialog = new MyDialog();
 					dialog.setVisible(true);
 				}
 				else {
-					System.out.println("성적 삭제가 성공적으로 되셨습니다.");
 					removeAll();
 					revalidate();
 					repaint();
@@ -85,7 +85,7 @@ public class ScoreDelete extends JPanel{
 		
 	}
 	class MyDialog extends JDialog{
-		JLabel dilabel = new JLabel("성적을 수정하실수 없습니다.");
+		JLabel dilabel = new JLabel("성적을 수정하실수 없습니다. 아이디를 다시 확인해주세요");
 		JButton okBtn = new JButton("확인");
 		public MyDialog() {
 

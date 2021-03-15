@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.UserDAO;
 import javafx.geometry.Orientation;
 import javax.swing.*;
 import java.awt.*;
@@ -96,9 +97,17 @@ public class Join extends JPanel{
 				int result = userDAO.join(id.getText(), passwd.getText(), name.getText(), sex.getText(), age.getText(), dept.getText(), st.getText());
 				if(result == -1) {
 					System.out.println("이미존재하는 아이디입니다.");
+					removeAll(); // 모든 컴포넌트 삭제
+					revalidate(); // 다시활성화
+					repaint(); // 다시그리기
+					add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
+					//setVisible(false);
+					setLayout(null); // 레이아웃 적용 안함
 				}
 				else {
 					System.out.println("회원가입이 되셨습니다.");
+					setVisible(false);
+					new Main(); // 학생정보에 대한 화면을 구현한 클래스를 생성
 				}
 			}
 			}

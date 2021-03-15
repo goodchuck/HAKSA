@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.ScoreDAO;
 import javafx.geometry.Orientation;
 import javax.swing.*;
 import java.awt.*;
@@ -72,19 +73,17 @@ public class ScoreUpdate extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if (id.getText() == null || en.getText() == null || ko.getText() == null || ma.getText() == null) {
-					System.out.println("입력 안된 사항이 있습니다.");	
+				if (id.getText() == null || en.getText() == null || ko.getText() == null || ma.getText() == null) {	
 					MyDialog2 dialog = new MyDialog2();
 					dialog.setVisible(true);
 			} else {
-				UserDAO userDAO = new UserDAO();				
-				int result = userDAO.update(ko.getText(), en.getText(), ma.getText(), id.getText());
+				ScoreDAO scoreDAO = new ScoreDAO();				
+				int result = scoreDAO.update(ko.getText(), en.getText(), ma.getText(), id.getText());
 				if(result == -1) {
 					MyDialog dialog = new MyDialog();
 					dialog.setVisible(true);
 				}
 				else {
-					System.out.println("성적 수정이 성공적으로 되셨습니다.");
 					removeAll();
 					revalidate();
 					repaint();

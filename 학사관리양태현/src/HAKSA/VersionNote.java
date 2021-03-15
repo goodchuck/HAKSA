@@ -51,8 +51,7 @@ public class VersionNote extends JPanel{
 	JButton insertBtn; //�Է�
 	JButton updateBtn; //����
 	JButton deleteBtn; //����
-	JButton idCheckBtn; //�й��ߺ�üũ
-	MyDialog dialog = new MyDialog();
+	JButton idCheckBtn; //�й��ߺ�üũ 
 	
 	VersionNote(){
 		

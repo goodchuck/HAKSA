@@ -21,6 +21,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DAO.UserDAO;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -32,11 +34,10 @@ public class Main extends JFrame{
 	ImageIcon icon;
 	JLabel label1, idlabel, pwlabel, sessionidlabel, sessionstlabel;
 	JTextField id, password;
-	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
-	private PreparedStatement pstmt;
-	private ResultSet rs;
 	MyDialog dialog = new MyDialog();
 	MyDialog2 dialog2 = new MyDialog2();
+	MyDialog3 dialog3 = new MyDialog3();
+	MyDialog4 dialog4 = new MyDialog4();
 	public static boolean idcheck = false;
 	public static String sessionid = "";
 	public static String sessionst = "";
@@ -85,7 +86,6 @@ public class Main extends JFrame{
 			b5.setVisible(true);
 			if (idcheck == true) {
 				sessionidlabel.setText(sessionid + " 	님 환영합니다.");
-				//sessionstlabel.setText(sessionst + " 	교사는0 학생은1");
 				if(sessionst.equals("0")) {
 					sessionstlabel.setText("학생이시군요 오늘도 열심히 공부합시다!");
 				} else if (sessionst.equals("1")) {
@@ -97,12 +97,6 @@ public class Main extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//panel.removeAll(); // 모든 컴포넌트 삭제
-				//panel.revalidate(); // 다시활성화
-				//panel.repaint(); // 다시그리기
-				//panel.add(new Join()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-				
-				//panel.setLayout(null); // 레이아웃 적용 안함
 				String testId = id.getText();
 				String testPassword = password.getText();
 				UserDAO userDAO = new UserDAO();
@@ -110,18 +104,13 @@ public class Main extends JFrame{
 				int result = userDAO.login(testId, testPassword);
 
 					if(result ==  1) {
-						System.out.println("로그인성공");
-						//String SId = id.getText();
 						dialog.setVisible(true);
 					}
 					else if(result == 0) {
-						System.out.println("비밀번호가 틀림");
-						password.setText("");
+						dialog3.setVisible(true);
 					}
 					else if(result == -1) {
-						System.out.println("존재하지 않는 아이디입니다.");
-						id.setText("");
-						password.setText("");
+						dialog4.setVisible(true);
 					}
 			}
 		});
@@ -156,9 +145,6 @@ public class Main extends JFrame{
 		JMenuItem gomain = new JMenuItem("메인화면으로");
 		main.add(gomain);
 		
-		JMenuItem mi_list = new JMenuItem("학생정보");
-		m_student.add(mi_list);
-		
 		JMenuItem mi_studentlist = new JMenuItem("전체학생목록");
 		m_student.add(mi_studentlist);
 		
@@ -179,18 +165,7 @@ public class Main extends JFrame{
 			}
 			
 		});
-		mi_list.addActionListener(new ActionListener() { //학생정보 클릭시
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel.removeAll(); // 모든 컴포넌트 삭제
-				panel.revalidate(); // 다시활성화
-				panel.repaint(); // 다시그리기
-				buttonpanel.setVisible(false);
-				panel.add(new Student()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-				panel.setLayout(null); // 레이아웃 적용 안함
-			}
-		});
 
 		mi_studentlist.addActionListener(new ActionListener() { //전체학생목록 클릭시
 
@@ -224,7 +199,6 @@ public class Main extends JFrame{
 				}
 			}
 		});
-		// 대출현황아이템 이벤트 처리
 		mi_score.addActionListener(new ActionListener() {// 성적 클릭시
 
 			@Override
@@ -298,8 +272,47 @@ public class Main extends JFrame{
 					new Main();
 				}
 			});
+			setSize(500,300);
+		}
+	}
+	class MyDialog3 extends JDialog{
+		JLabel dilabel = new JLabel("아이디 혹은 비밀번호를 틀리셨습니다.");
+		JButton okBtn = new JButton("확인");
+		public MyDialog3() {
 
-			setSize(800,300);
+			setLayout(new FlowLayout());
+			add(dilabel);
+			add(okBtn);
+			
+			okBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					new Main();
+				}
+			});
+			setSize(500,300);
+		}
+	}
+	class MyDialog4 extends JDialog{
+		JLabel dilabel = new JLabel("존재하지 않는 아이디입니다.");
+		JButton okBtn = new JButton("확인");
+		public MyDialog4() {
+
+			setLayout(new FlowLayout());
+			add(dilabel);
+			add(okBtn);
+			
+			okBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					new Main();
+				}
+			});
+			setSize(500,300);
 		}
 	}
 }

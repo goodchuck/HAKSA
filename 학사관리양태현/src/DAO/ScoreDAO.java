@@ -1,4 +1,4 @@
-package HAKSA;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,6 +59,17 @@ public class ScoreDAO {
 			pstmt.setString(2, en);
 			pstmt.setString(3, ma);
 			pstmt.setString(4, id);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // �����ͺ��̽� ����
+	}
+	public int delete(String id) {
+		String SQL = "DELETE FROM scoretest WHERE user_ID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL); //���� ����Ǿ��ִ� ��ü �̿��ؼ� �����غ�ܰ�θ���
+			pstmt.setString(1, id);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
