@@ -21,7 +21,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int login(String userID, String userPassword) {
 
 		String SQL = "SELECT Pw,St FROM USER WHERE Id = ?";
@@ -79,6 +79,50 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	public int scoreint(String ko, String en, String ma, String id) {
+		String SQL = "INSERT INTO SCORE (ko,en,ma,user_Id) VALUES (?,?,?,?)";
+		try {
+
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, ko);
+			pstmt.setString(2, en);
+			pstmt.setString(3, ma);
+			pstmt.setString(4, id);
+			return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int scoreinttest(String ko, String en, String ma, String id) {
+		String SQL = "INSERT INTO SCORETEST (ko,en,ma,user_Id) VALUES (?,?,?,?)";
+		try {
+
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, ko);
+			pstmt.setString(2, en);
+			pstmt.setString(3, ma);
+			pstmt.setString(4, id);
+			return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int update(String ko, String en, String ma, String id) {
+		String SQL = "UPDATE scoretest SET Ko = ?, En = ?, Ma = ? WHERE user_Id = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL); //���� ����Ǿ��ִ� ��ü �̿��ؼ� �����غ�ܰ�θ���
+			pstmt.setString(1, ko);
+			pstmt.setString(2, en);
+			pstmt.setString(3, ma);
+			pstmt.setString(4, id);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // �����ͺ��̽� ����
 	}
 }
 

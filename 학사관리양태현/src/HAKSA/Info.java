@@ -24,8 +24,8 @@ import javafx.geometry.Orientation;
 
 
 public class Info extends JPanel{
-	JTextField idlabel, pwlabel,namelabel,sexlabel,agelabel, deptlabel, stlabel;
-	JLabel idtext, pwtext, nametext, sextext, agetext, depttext, sttext;
+	JTextField idlabel, pwlabel,namelabel,sexlabel,agelabel, deptlabel, stlabel, kolabel, enlabel, malabel;
+	JLabel idtext, pwtext, nametext, sextext, agetext, depttext, sttext, kotext, entext, matext;
 	//JPanel mainpanel;
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
@@ -42,7 +42,9 @@ public class Info extends JPanel{
 		agetext = new JLabel("나이= ");
 		depttext = new JLabel("학과= ");
 		sttext = new JLabel("교사여부= ");
-		
+		kotext = new JLabel("국어성적= ");
+		entext = new JLabel("영어성적= ");
+		matext = new JLabel("수학성적= ");
 		
 		//mainpanel = new JPanel();
 		
@@ -60,10 +62,16 @@ public class Info extends JPanel{
 		deptlabel.setEditable(false);
 		stlabel = new JTextField();
 		stlabel.setEditable(false);
+		kolabel = new JTextField();
+		kolabel.setEditable(false);
+		enlabel = new JTextField();
+		enlabel.setEditable(false);
+		malabel = new JTextField();
+		malabel.setEditable(false);
 		System.out.println(Main.sessionid);
 		if(Main.sessionid != null) {
 			String sql;
-			sql = "SELECT * from user where Id=" +Main.sessionid +"";
+			sql = "SELECT * from user where Id='" +Main.sessionid +"'";
 			ResultSet rs;
 			
 			try {
@@ -92,6 +100,28 @@ public class Info extends JPanel{
 					deptlabel.setText(userDept);
 					stlabel.setText(userSt);
 				}
+				if(stlabel.equals("0")) {
+					sql = "SELECT * from scoretest where user_Id=" +Main.sessionid +"";
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						String Ko = rs.getString("Ko");
+						String En = rs.getString("En");
+						String Ma = rs.getString("Ma");
+						kolabel.setText(Ko);
+						enlabel.setText(En);
+						malabel.setText(Ma);
+						stlabel.setText("학생");
+					}	
+				} else {
+					kotext.setVisible(false);
+					entext.setVisible(false);
+					matext.setVisible(false);
+					kolabel.setVisible(false);
+					enlabel.setVisible(false);
+					malabel.setVisible(false);
+					stlabel.setText("교사");
+				}
 				rs.close();
 				pstmt.close();
 				conn.close();
@@ -114,8 +144,13 @@ public class Info extends JPanel{
 		add(deptlabel);
 		add(sttext);
 		add(stlabel);
-
-		setSize(600,600);
+		add(kotext);
+		add(kolabel);
+		add(entext);
+		add(enlabel);
+		add(matext);
+		add(malabel);
+		setSize(450,500);
 		setVisible(true);
 		
 		

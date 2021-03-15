@@ -24,7 +24,7 @@ import javax.swing.border.*;
 public class Join extends JPanel{
 	
 	
-	JLabel lb1, la1, la2, la3, la4, la5, la6, la7, la8;
+	JLabel lb1, la1, la2, la3, la4, la5, la6, la7, la8, la9;
 	JTextField id, name, sex, age, dept, st;
 	//JPasswordField passwd;
 	JTextField passwd;
@@ -45,6 +45,7 @@ public class Join extends JPanel{
 		la5 = new JLabel("성별");
 		la6 = new JLabel("나이");
 		la7 = new JLabel("학과");
+		la9 = new JLabel("기입예시 ex) 컴공, 경영, 전자");
 		la8 = new JLabel("교사여부 학생은 0, 교사는 1 입력");
 		id = new JTextField(10);
 		//passwd = new JPasswordField(10);
@@ -65,6 +66,7 @@ public class Join extends JPanel{
 		add(la6);
 		add(age);
 		add(la7);
+		add(la9);
 		add(dept);
 		add(la8);
 		add(st);

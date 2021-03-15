@@ -65,29 +65,32 @@ public class Main extends JFrame{
 		pwlabel = new JLabel("비밀번호");
 		id = new JTextField(10);
 		password = new JTextField(10);
-		b1 = new JButton("학생로그인");
+		b1 = new JButton("로그인");
 		b2 = new JButton("회원가입");
-		b3 = new JButton("교사로그인");
 		b5 = new JButton("로그아웃");
 		panel = new JPanel();
 		buttonpanel = new JPanel();
 		sessionidpanel = new JPanel();
 		sessionidlabel = new JLabel("로그인을해주세요");
-		sessionstlabel = new JLabel("교사여부X");
+		sessionstlabel = new JLabel("");
 		if(sessionid == "") {
 			b5.setVisible(false);
 		} else {
 			b1.setVisible(false);
 			b2.setVisible(false);
-			b3.setVisible(false);
 			idlabel.setVisible(false);
 			pwlabel.setVisible(false);
 			id.setVisible(false);
 			password.setVisible(false);
 			b5.setVisible(true);
 			if (idcheck == true) {
-				sessionidlabel.setText(sessionid + " 님 환영합니다.");
-				sessionstlabel.setText(sessionst + " 교사는0 학생은1");
+				sessionidlabel.setText(sessionid + " 	님 환영합니다.");
+				//sessionstlabel.setText(sessionst + " 	교사는0 학생은1");
+				if(sessionst.equals("0")) {
+					sessionstlabel.setText("학생이시군요 오늘도 열심히 공부합시다!");
+				} else if (sessionst.equals("1")) {
+					sessionstlabel.setText("교사이시군요 오늘도 활기차게 근무합시다!");
+				}
 			} 
 		}
 		b1.addActionListener(new ActionListener() {
@@ -217,7 +220,7 @@ public class Main extends JFrame{
 					panel.repaint(); // 다시그리기
 					buttonpanel.setVisible(false);
 					panel.add(new Info()); // 학생정보에 대한 화면을 구현한 클래스를 생성
-					//panel.setLayout(null); // 레이아웃 적용 안함
+					panel.setLayout(null); // 레이아웃 적용 안함
 				}
 			}
 		});
@@ -239,7 +242,6 @@ public class Main extends JFrame{
 		panel.add(pwlabel);
 		panel.add(password);
 		buttonpanel.add(b1);
-		buttonpanel.add(b3);
 		buttonpanel.add(b2);
 		panel.add(b5);
 		sessionidpanel.add(sessionidlabel);
