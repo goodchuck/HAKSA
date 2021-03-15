@@ -29,9 +29,10 @@ public class Score extends JPanel {
 	public Score() {
 		la1 = new JLabel("학생은 성적 보기만하실수있습니다.");
 		String sql;
-		sql = "SELECT * from scoretest";
+		//sql = "SELECT * from scoretest";
+		sql = "select * from user join scoretest on user_Id = Id";
 		ResultSet rs;
-		String colName[] = {"아이디","국어","영어","수학"};
+		String colName[] = {"아이디","이름","국어","영어","수학"};
 		DefaultTableModel model = new DefaultTableModel(colName,0);
 		
 		JTable table = new JTable(model);
@@ -49,10 +50,11 @@ public class Score extends JPanel {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				String userID = rs.getString("user_Id");
+				String userName = rs.getString("Name");
 				String userKo = rs.getString("Ko");
 				String userEn = rs.getString("En");
 				String userMa = rs.getString("Ma");
-				model.insertRow(i, new Object[] {userID, userKo, userEn, userMa});
+				model.insertRow(i, new Object[] {userID, userName, userKo, userEn, userMa});
 				i++;
 			}
 			rs.close();
@@ -67,8 +69,10 @@ public class Score extends JPanel {
 
 		if(Main.sessionst.equals("0") || Main.sessionst.equals("")) {
 			b1.setVisible(false);
+			b2.setVisible(false);
 		} else if (Main.sessionst.equals("1")) {
 			b1.setVisible(true);
+			b2.setVisible(true);
 		}
 		b1.addActionListener(new ActionListener() {
 

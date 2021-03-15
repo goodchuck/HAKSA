@@ -97,7 +97,7 @@ public class ScoreUpdate extends JPanel{
 		
 	}
 	class MyDialog extends JDialog{
-		JLabel dilabel = new JLabel("이미성적이 입력되어있습니다.");
+		JLabel dilabel = new JLabel("성적을 수정하실수 없습니다.");
 		JButton okBtn = new JButton("확인");
 		public MyDialog() {
 
