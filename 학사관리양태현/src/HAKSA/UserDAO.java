@@ -124,6 +124,17 @@ public class UserDAO {
 		}
 		return -1; // �����ͺ��̽� ����
 	}
+	public int delete(String id) {
+		String SQL = "DELETE FROM scoretest WHERE user_ID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL); //���� ����Ǿ��ִ� ��ü �̿��ؼ� �����غ�ܰ�θ���
+			pstmt.setString(1, id);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // �����ͺ��̽� ����
+	}
 }
 
 

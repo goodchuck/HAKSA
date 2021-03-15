@@ -21,7 +21,7 @@ public class Score extends JPanel {
 	private Connection conn; //�����ͺ��̽� �����ϴ°� ��ü
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	JButton b1, b2;
+	JButton b1, b2, b3;
 	DefaultTableModel model;// 모델데이터
 	JTable table;// 테이블
 	JLabel la1;
@@ -66,13 +66,16 @@ public class Score extends JPanel {
 		}
 		System.out.println(Main.sessionid);
 		b1 = new JButton("성적 입력");
-
+		b2 = new JButton("성적 수정");
+		b3 = new JButton("성적 삭제");
 		if(Main.sessionst.equals("0") || Main.sessionst.equals("")) {
 			b1.setVisible(false);
 			b2.setVisible(false);
+			b3.setVisible(false);
 		} else if (Main.sessionst.equals("1")) {
 			b1.setVisible(true);
 			b2.setVisible(true);
+			b3.setVisible(true);
 		}
 		b1.addActionListener(new ActionListener() {
 
@@ -87,7 +90,6 @@ public class Score extends JPanel {
 			}
 		});
 		
-		b2 = new JButton("성적 수정");
 		b2.addActionListener(new ActionListener() {
 
 			@Override
@@ -100,8 +102,21 @@ public class Score extends JPanel {
 				
 			}
 		});
+		b3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeAll();
+				revalidate();
+				repaint();
+				add(new ScoreDelete());
+				setLayout(null);
+				
+			}
+		});
 		add(b1);
 		add(b2);
+		add(b3);
 		add(la1);
 		setSize(450,450);
 		setVisible(true);

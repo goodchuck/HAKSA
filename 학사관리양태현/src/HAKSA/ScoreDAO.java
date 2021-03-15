@@ -21,22 +21,6 @@ public class ScoreDAO {
 			e.printStackTrace();
 		}
 	}
-	public int selectname(String userID) {
-
-		String SQL = "SELECT * FROM USER WHERE Id = ?";
-		try {
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userID);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				return 1;
-			}
-			return -1; // 데이터베이스 오류
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -2; // �����ͺ��̽� ����
-	}
 	public int scoreint(String ko, String en, String ma, String id) {
 		String SQL = "INSERT INTO SCORE (ko,en,ma,user_Id) VALUES (?,?,?,?)";
 		try {

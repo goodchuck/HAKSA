@@ -21,7 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 
-public class Scoreint extends JPanel{
+public class ScoreDelete extends JPanel{
 	
 	
 	JLabel lb1, la1, la2, la3, la4, la5, la6, la7, la8, la9;
@@ -31,34 +31,22 @@ public class Scoreint extends JPanel{
 	JButton b1, b2;
 	JTextArea content;
 	
-	public Scoreint(){
+	public ScoreDelete(){
 		setLayout(new FlowLayout());
 		EtchedBorder eborder = new EtchedBorder();
-		lb1 = new JLabel("아이디와 성적을 입력해 주세요");
+		lb1 = new JLabel("삭제하실 아이디를 입력해주세요");
 		lb1.setBorder(eborder);
 		
 		add(lb1);
 		
 		la3 = new JLabel("아이디");
-		la2 = new JLabel("국어");
-		la4 = new JLabel("영어");
-		la5 = new JLabel("수학");
 		id = new JTextField(10);
 		//passwd = new JPasswordField(10);
-		ko = new JTextField(10);
-		en = new JTextField(10);
-		ma = new JTextField(10);
 
 		add(la3);
 		add(id);
-		add(la2);
-		add(ko);
-		add(la4);
-		add(en);
-		add(la5);
-		add(ma);
 
-		b2 = new JButton("성적 입력");
+		b2 = new JButton("성적 삭제");
 		add(b2);
 
 		
@@ -72,19 +60,19 @@ public class Scoreint extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if (id.getText() == null || en.getText() == null || ko.getText() == null || ma.getText() == null) {
+				if (id.getText() == null) {
 					System.out.println("입력 안된 사항이 있습니다.");	
 					MyDialog2 dialog = new MyDialog2();
 					dialog.setVisible(true);
 			} else {
 				UserDAO userDAO = new UserDAO();				
-				int result = userDAO.scoreinttest(ko.getText(), en.getText(), ma.getText(), id.getText());
+				int result = userDAO.delete(id.getText());
 				if(result == -1) {
 					MyDialog dialog = new MyDialog();
 					dialog.setVisible(true);
 				}
 				else {
-					System.out.println("성적입력이 성공적으로 되셨습니다.");
+					System.out.println("성적 삭제가 성공적으로 되셨습니다.");
 					removeAll();
 					revalidate();
 					repaint();
@@ -97,7 +85,7 @@ public class Scoreint extends JPanel{
 		
 	}
 	class MyDialog extends JDialog{
-		JLabel dilabel = new JLabel("이미성적이 입력되어있습니다.");
+		JLabel dilabel = new JLabel("성적을 수정하실수 없습니다.");
 		JButton okBtn = new JButton("확인");
 		public MyDialog() {
 
@@ -110,7 +98,7 @@ public class Scoreint extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					new Scoreint();
+					new ScoreDelete();
 				}
 			});
 
@@ -131,7 +119,7 @@ public class Scoreint extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					new Scoreint();
+					new ScoreDelete();
 				}
 			});
 
